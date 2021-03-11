@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork", "CourseWork\CourseWork.csproj", "{7E5F33C0-28A9-4A82-A4FA-022F76837BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork", "CourseWork\CourseWork.csproj", "{7E5F33C0-28A9-4A82-A4FA-022F76837BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityModels", "EntityModels\EntityModels.csproj", "{87405190-F34B-4A39-B78D-DE2EF4792CF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityModels", "EntityModels\EntityModels.csproj", "{87405190-F34B-4A39-B78D-DE2EF4792CF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{FD4ED0C2-241A-45D7-A4D0-9A2801471D09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{87405190-F34B-4A39-B78D-DE2EF4792CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87405190-F34B-4A39-B78D-DE2EF4792CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87405190-F34B-4A39-B78D-DE2EF4792CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD4ED0C2-241A-45D7-A4D0-9A2801471D09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD4ED0C2-241A-45D7-A4D0-9A2801471D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD4ED0C2-241A-45D7-A4D0-9A2801471D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD4ED0C2-241A-45D7-A4D0-9A2801471D09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

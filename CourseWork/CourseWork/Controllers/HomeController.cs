@@ -1,4 +1,6 @@
-﻿using CourseWork.Models;
+﻿using BLL.BusinessInterfaces;
+using CourseWork.Models;
+using EntityModels.DamainEntities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +13,11 @@ namespace CourseWork.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IService<Article> _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IService<Article> service)
         {
-            _logger = logger;
+            _service = service;
         }
 
         public IActionResult Index()
