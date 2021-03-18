@@ -11,6 +11,6 @@ namespace BLL.BusinessInterfaces
 
         public void Update(T entity);
 
-        public void Remove(T entity);
+        public void Remove(int id);
     }
 }

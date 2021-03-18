@@ -27,8 +27,9 @@ namespace EntityModels.Repositories
             return _newsContext.Topics.ToList();
         }
 
-        public void Remove(Topic entity)
+        public void Remove(int id)
         {
+            var entity = _newsContext.Topics.First(e => e.Id == id);
             _newsContext.Topics.Remove(entity);
             _newsContext.SaveChanges();
         }

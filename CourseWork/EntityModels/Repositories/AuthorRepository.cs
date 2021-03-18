@@ -6,36 +6,37 @@ using EntityModels.Users;
 
 namespace EntityModels.Repositories
 {
-    class AdminRepository : IRepository<Admin>
+    class AuthorRepository : IRepository<Author>
     {
         private readonly NewsContext _newsContext;
 
-        public AdminRepository(NewsContext newsContext)
+        public AuthorRepository(NewsContext newsContext)
         {
             _newsContext = newsContext;
         }
 
-        public int Add(Admin entity)
+        public int Add(Author entity)
         {
-            var state = _newsContext.Admins.Add(entity);
+            var state = _newsContext.Authors.Add(entity);
             _newsContext.SaveChanges();
             return state.Entity.Id;
         }
 
-        public List<Admin> GetAll()
+        public List<Author> GetAll()
         {
-            return _newsContext.Admins.ToList();
+            return _newsContext.Authors.ToList();
         }
 
-        public void Remove(Admin entity)
+        public void Remove(int id)
         {
-            _newsContext.Admins.Remove(entity);
+            var entity = _newsContext.Authors.First(e => e.Id == id);
+            _newsContext.Authors.Remove(entity);
             _newsContext.SaveChanges();
         }
 
-        public void Update(Admin entity)
+        public void Update(Author entity)
         {
-            _newsContext.Update(entity);
+            _newsContext.Authors.Update(entity);
             _newsContext.SaveChanges();
         }
     }

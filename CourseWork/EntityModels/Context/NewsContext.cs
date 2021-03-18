@@ -12,17 +12,10 @@ namespace EntityModels.Context
 
         public DbSet<ArticleComment> ArticleComments { get; set; }
 
-        public DbSet<Admin> Admins { get; set; }
-
         public DbSet<Author> Authors { get; set; }
 
-        public NewsContext() : base()
+        public NewsContext(DbContextOptions<NewsContext> options) : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=.\sqlexpress;Initial Catalog=NewsDb;Integrated Security=True");
         }
     }
 }

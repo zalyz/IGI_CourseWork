@@ -27,8 +27,9 @@ namespace EntityModels.Repositories
             return _newsContext.ArticleComments.ToList();
         }
 
-        public void Remove(ArticleComment entity)
+        public void Remove(int id)
         {
+            var entity = _newsContext.ArticleComments.First(e => e.Id == id);
             _newsContext.ArticleComments.Remove(entity);
             _newsContext.SaveChanges();
         }

@@ -1,0 +1,24 @@
+﻿@using CourseWork.Models.SiteManagement;
+
+@model  SiteManagementViewModel
+
+<body>
+    <div class="navbar-collapse bg-white">
+        <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-tabs mr-3">
+                <a class="nav-link text-dark" asp-action="GetArticlePartialView">Approve Articles</a>
+            </li>
+            <li class="nav-tabs mr-3">
+                <a class="nav-link text-dark" asp-action="GetTopicPartialView">Topics</a>
+            </li>
+            <li class="nav-tabs mr-3">
+                <a class="nav-link text-dark" asp-action="GetAuthorPartialView">Authors</a>
+            </li>
+        </ul>
+    </div>
+    <div class="bg-white mt-2">
+        <div>
+            @await Component.InvokeAsync(Model.PartialViewName);
+        </div>
+    </div>
+</body>

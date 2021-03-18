@@ -1,0 +1,43 @@
+﻿@model ArticleViewModel
+
+<script src="~/js/Article.js"></script>
+
+<div>
+    <form class="" action="AddArticle" method="get" role="form" asp-antiforgery="true">
+        <div class="d-sm-flex justify-content-between">
+            <div class="form-group">
+                <label class="form-check-label" for="chuseTopic">Topic</label>
+                <input class="form-control" id="chuseTopic" type="text" name="topic" list="topicsList" placeholder="Topic"/>
+                <datalist id="topicsList">
+                    <option value="Test"/>
+                    @foreach (var topic in Model.Topics)
+                    {
+                        <option value="@topic" />
+                    }
+                </datalist>
+            </div>
+            <div>
+                <label class="form-check-label" for="userName">Author</label>
+                <input class="form-control" id="userName" type="text" name="userName" placeholder="Author" value="@User.Identity.Name"/>
+            </div>
+            <div class="p-3">
+                <input class="m-2" id="AddImg" type="file" name="img" onchange="showImg(event);" />
+            </div>
+        </div>
+        <div class="">
+            <label class="form-check-label" for="articleTitle">Article title</label>
+            <input id="articleTitle" class="form-control" type="text" name="title" placeholder="Title" />
+        </div>
+        <div class="">
+            <div id="divForImg" class="p-3 d-flex justify-content-center align-content-center">
+            </div>
+            <div class="">
+                <label class="form-check-label" for="articleText">Article text</label>
+                <input id="articleText" class="form-control w-100" type="text" />
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-success" type="submit">Add article</button>
+        </div>
+    </form>
+</div>

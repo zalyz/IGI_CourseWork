@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body style="background: #f2f3f5;">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -26,13 +26,30 @@
                         </li>
                     </ul>
                 </div>
+                <div class="my-2 my-lg-0">
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-sm" type="button">
+                            @User.Identity.Name
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Article" asp-action="Add">Write Article</a>
+                            <a class="dropdown-item" asp-controller="SiteManagement" asp-action="ManagementBody">Manage Site</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 col-9">
             @RenderBody()
         </main>
+        <div class="col-3">
+
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">

@@ -24,9 +24,9 @@ namespace BLL.Services
             return _articelRepository.GetAll();
         }
 
-        public void Remove(Article entity)
+        public void Remove(int id)
         {
-            _articelRepository.Remove(entity);
+            _articelRepository.Remove(id);
         }
 
         public void Update(Article entity)

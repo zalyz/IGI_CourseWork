@@ -15,6 +15,8 @@ namespace EntityModels.DamainEntities
 
         public byte[] ImageBytes { get; set; }
 
+        public int NumberOfViews { get; set; }
+
         public bool IsApproved { get; set; } = false;
 
         public Topic Topic { get; set; }
