@@ -3,37 +3,42 @@
 <script src="~/js/Article.js"></script>
 
 <div>
-    <form class="" action="AddArticle" method="get" role="form" asp-antiforgery="true">
+    <form class="" action="AddArticle" method="post" role="form" asp-antiforgery="true" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
         <div class="d-sm-flex justify-content-between">
             <div class="form-group">
                 <label class="form-check-label" for="chuseTopic">Topic</label>
-                <input class="form-control" id="chuseTopic" type="text" name="topic" list="topicsList" placeholder="Topic"/>
+                <input class="form-control" id="chuseTopic" type="text" asp-for="ArticleAddValidation.Topic" list="topicsList" placeholder="Topic" />
                 <datalist id="topicsList">
-                    <option value="Test"/>
                     @foreach (var topic in Model.Topics)
                     {
-                        <option value="@topic" />
+                        <option value="@topic.Name" />
                     }
                 </datalist>
+                <span asp-validation-for="@Model.ArticleAddValidation.Topic"></span>
             </div>
-            <div>
+            <div class="form-group">
                 <label class="form-check-label" for="userName">Author</label>
-                <input class="form-control" id="userName" type="text" name="userName" placeholder="Author" value="@User.Identity.Name"/>
+                <input class="form-control" id="userName" type="text" asp-for="ArticleAddValidation.UserName" placeholder="Author" value="@User.Identity.Name" />
+                <span asp-validation-for="@Model.ArticleAddValidation.UserName"></span>
             </div>
-            <div class="p-3">
-                <input class="m-2" id="AddImg" type="file" name="img" onchange="showImg(event);" />
+            <div class="p-3 form-group">
+                <input class="m-2 form-control" id="AddImg" type="file" asp-for="ArticleAddValidation.Image" name="articleAddValidation.Image" onchange="showImg(event);" />
+                <span asp-validation-for="@Model.ArticleAddValidation.Image"></span>
             </div>
         </div>
-        <div class="">
+        <div class="form-group">
             <label class="form-check-label" for="articleTitle">Article title</label>
-            <input id="articleTitle" class="form-control" type="text" name="title" placeholder="Title" />
+            <input id="articleTitle" class="form-control" type="text" asp-for="ArticleAddValidation.Title" placeholder="Title" />
+            <span asp-validation-for="@Model.ArticleAddValidation.Title"></span>
         </div>
-        <div class="">
+        <div class="form-group">
             <div id="divForImg" class="p-3 d-flex justify-content-center align-content-center">
             </div>
             <div class="">
                 <label class="form-check-label" for="articleText">Article text</label>
-                <input id="articleText" class="form-control w-100" type="text" />
+                <textarea id="articleText" class="form-control w-100 text-dark" asp-for="ArticleAddValidation.Text" style="max-height: 100%"></textarea>
+                <span asp-validation-for="@Model.ArticleAddValidation.Text"></span>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
@@ -41,3 +46,9 @@
         </div>
     </form>
 </div>
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

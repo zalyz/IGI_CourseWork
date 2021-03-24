@@ -2,9 +2,11 @@
 using CourseWork.Models;
 using EntityModels.DamainEntities;
 using EntityModels.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,30 +38,28 @@ namespace CourseWork.Controllers
             return View(articleViewModel);
         }
 
-        [HttpGet]
-        public IActionResult AddArticle(
-            string title,
-            string text,
-            byte[] img,
-            string topicName,
-            string userName
-            )
+        [HttpPost]
+        public IActionResult AddArticle(ArticleAddValidation articleAddValidation)
         {
-            var article = new Article
+            if (ModelState.IsValid)
             {
-                Title = title,
-                Text = text,
-                ImageBytes = img,
-                NumberOfViews = 0,
-                Topic = _topicService.GetAll().First(e => e.Name == topicName),
-                Author = _authorService.GetAll().First(e => e.Name == userName),
-            };
+                var article = new Article
+                {
+                    Title = articleAddValidation.Title,
+                    Text = articleAddValidation.Text,
+                    ImageBytes = GetByteArrayFromImage(articleAddValidation.Image),
+                    NumberOfViews = 0,
+                    Topic = _topicService.GetAll().First(e => e.Name == articleAddValidation.Topic),
+                    Author = _authorService.GetAll().First(e => e.Name == articleAddValidation.UserName),
+                };
 
-            _articleService.Add(article);
-            return View();
+                _articleService.Add(article);
+            }
+
+            return RedirectToAction("Add");
         }
 
-        [HttpPost]
+        [HttpGet]
         public string AddArticle()
         {
             return "Купил";
@@ -68,6 +68,15 @@ namespace CourseWork.Controllers
         public IActionResult Edit()
         {
             return View();
+        }
+
+        private byte[] GetByteArrayFromImage(IFormFile file)
+        {
+            using (var target = new MemoryStream())
+            {
+                file.CopyTo(target);
+                return target.ToArray();
+            }
         }
     }
 }

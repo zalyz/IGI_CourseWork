@@ -1,6 +1,6 @@
 ﻿@using CourseWork.Models.SiteManagement;
 
-@model  SiteManagementViewModel
+@model SiteManagementViewModel;
 
 <body>
     <div class="navbar-collapse bg-white">
@@ -18,7 +18,10 @@
     </div>
     <div class="bg-white mt-2">
         <div>
-            @await Component.InvokeAsync(Model.PartialViewName);
+            @if (!string.IsNullOrEmpty(Model.PartialViewName))
+            {
+                @await Component.InvokeAsync(Model.PartialViewName);
+            }
         </div>
     </div>
 </body>

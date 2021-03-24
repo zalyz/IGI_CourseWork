@@ -31,9 +31,11 @@ namespace CourseWork.Controllers
 
         public IActionResult GetArticlePartialView()
         {
-            var articlePartialView = "ApproveArticleView";
-
-            return View("ManagementBody", GetSiteManagementViewModelWithArticle(articlePartialView));
+            var articlePartialView = "ApproveArticle";
+            return View("ManagementBody", new SiteManagementViewModel
+            {
+                PartialViewName = articlePartialView,
+            });
         }
 
         public IActionResult ApproveArticle(int id)
@@ -47,7 +49,10 @@ namespace CourseWork.Controllers
         public IActionResult GetTopicPartialView()
         {
             var topicPartialView = "TopicManagement";
-            return View("ManagementBody", GetSiteManagementViewModelWithTopic(topicPartialView));
+            return View("ManagementBody", new SiteManagementViewModel
+            {
+                PartialViewName = topicPartialView,
+            });
         }
 
         public IActionResult AddTopic(string topicName)
@@ -69,49 +74,10 @@ namespace CourseWork.Controllers
         public IActionResult GetAuthorPartialView()
         {
             var authorPartialView = "AuthorManagement";
-            return View("ManagementBody");
-        }
-
-        private SiteManagementViewModel GetSiteManagementViewModelWithTopic(string partialViewName)
-        {
-            var approvedArticlesNumber = new List<int>();
-            var notApprovedArticlesNumber = new List<int>();
-            foreach (Topic topic in _topicService.GetAll())
+            return View("ManagementBody", new SiteManagementViewModel
             {
-                approvedArticlesNumber.Add(
-                    _articleService.GetAll()
-                    .Where(e => e.Topic.Name == topic.Name && e.IsApproved == true)
-                    .Count()
-                    );
-
-                notApprovedArticlesNumber.Add(
-                    _articleService.GetAll()
-                    .Where(e => e.Topic.Name == topic.Name && e.IsApproved == false)
-                    .Count()
-                    );
-            }
-
-            return new SiteManagementViewModel
-            {
-                PartialViewName = partialViewName,
-                TopicManagementViewModel = new TopicManagementViewModel
-                {
-                    Topics = _topicService.GetAll(),
-                    Approved = approvedArticlesNumber,
-                    NotApproved = notApprovedArticlesNumber,
-                },
-            };
-        }
-
-        private SiteManagementViewModel GetSiteManagementViewModelWithArticle(string partialViewName)
-        {
-            return new SiteManagementViewModel
-            {
-                ArticleManagementViewModel = new ArticleManagementViewModel
-                {
-                    Articles = _articleService.GetAll(),
-                },
-            };
+                PartialViewName = authorPartialView,
+            });
         }
     }
 }
