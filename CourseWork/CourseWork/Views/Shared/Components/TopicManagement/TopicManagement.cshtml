@@ -17,7 +17,8 @@
         <form asp-antiforgery="true">
             <table>
                 <tr>
-                    <td class="p-2 w-50">Name</td>
+                    <td class="p-2 w-25">Name</td>
+                    <td class="p-2 w-25">Views</td>
                     <td class="p-2 w-25">Approved Articles</td>
                     <td class="p-2 w-25">Not Approved Articles</td>
                 </tr>
@@ -26,7 +27,8 @@
                     for (int i = 0; i < Model.Topics.Count; i++)
                     {
                         <tr>
-                            <td class="p-2 w-50">@Model.Topics[i].Name</td>
+                            <td class="p-2 w-25">@Model.Topics[i].Name</td>
+                            <td class="p-2 w-25">@Model.AmountOfViews[i]</td>
                             <td class="p-2 w-25">@Model.Approved[i]</td>
                             <td class="p-2 w-25">@Model.NotApproved[i]</td>
                             <td>

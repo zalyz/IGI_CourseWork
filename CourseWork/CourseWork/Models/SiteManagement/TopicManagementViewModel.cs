@@ -10,5 +10,7 @@ namespace CourseWork.Models.SiteManagement
         public List<int> Approved { get; set; }
 
         public List<int> NotApproved { get; set; }
+
+        public List<int> AmountOfViews { get; set; }
     }
 }

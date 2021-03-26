@@ -1,7 +1,7 @@
 ﻿using EntityModels.DamainEntities;
 using System.Collections.Generic;   
 
-namespace CourseWork.Models
+namespace CourseWork.Models.ArticleModels
 {
     public class ArticleViewModel
     {

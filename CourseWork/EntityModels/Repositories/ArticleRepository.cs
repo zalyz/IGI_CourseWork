@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EntityModels.Context;
 using EntityModels.Interfaces;
 using EntityModels.DamainEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityModels.Repositories
 {
@@ -24,7 +25,7 @@ namespace EntityModels.Repositories
 
         public List<Article> GetAll()
         {
-            return _newsContext.Articles.ToList();
+            return _newsContext.Articles.Include(e => e.Author).ToList();
         }
 
         public void Remove(int id)

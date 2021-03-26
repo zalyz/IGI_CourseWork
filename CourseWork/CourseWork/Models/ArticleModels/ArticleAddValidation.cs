@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace CourseWork.Models
+namespace CourseWork.Models.ArticleModels
 {
     public class ArticleAddValidation
     {

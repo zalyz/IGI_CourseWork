@@ -14,6 +14,11 @@ namespace EntityModels.DamainEntities
 
         public DateTime DateTime { get; set; }
 
+        [ForeignKey("Article")]
+        public int ArticleId { get; set; }
+
+        public Article Article { get; set; }
+
         public int AuthorId { get; set; }
 
         [ForeignKey("AuthorId")]

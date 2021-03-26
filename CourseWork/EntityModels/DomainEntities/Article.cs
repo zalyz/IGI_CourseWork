@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EntityModels.Users;
 
@@ -19,10 +20,10 @@ namespace EntityModels.DamainEntities
 
         public bool IsApproved { get; set; } = false;
 
+        public DateTime Date { get; set; }
+
         public Topic Topic { get; set; }
 
         public Author Author { get; set; }
-
-        public List<ArticleComment> ArticleComments { get; set; }
     }
 }

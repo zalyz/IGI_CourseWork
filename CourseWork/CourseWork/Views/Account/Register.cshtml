@@ -1,0 +1,53 @@
+﻿@model CourseWork.Models.AccountModels.AccountRegistrationValidation
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<div class="d-flex justify-content-center align-content-center">
+    <form class="shadow mt-4 p-4" method="post" asp-action="Register" asp-controller="Account" asp-antiforgery="true">
+        <h1>Registration</h1>
+        <div asp-validation-summary="ModelOnly"></div>
+        <table>
+            <tr>
+                <td class="form-group">
+                    <label asp-for="Nickname">Enter Nickname</label>
+                </td>
+                <td>
+                    <input class="form-control" type="text" asp-for="Nickname" />
+                    <span asp-validation-for="Nickname" />
+                </td>
+            </tr>
+            <tr>
+                <td class="form-group">
+                    <label asp-for="Email">Enter Email</label>
+                </td>
+                <td>
+                    <input class="form-control" type="text" asp-for="Email" />
+                    <span asp-validation-for="Email" />
+                </td>
+            </tr>
+            <tr>
+                <td class="form-group">
+                    <label asp-for="Password">Enter Password</label>
+                </td>
+                <td>
+                    <input class="form-control" asp-for="Password" />
+                    <span asp-validation-for="Password" />
+                </td>
+            </tr>
+            <tr>
+                <td class="form-group">
+                    <label asp-for="ConfirmPassword">Submit Password</label>
+                </td>
+                <td>
+                    <input class="form-control" asp-for="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" />
+                </td>
+            </tr>
+        </table>
+        <div class="form-group d-flex justify-content-center mt-2">
+            <input type="submit" class="btn btn-success" value="Register" asp-action="Register" />
+        </div>
+    </form>
+</div>

@@ -10,7 +10,7 @@
             <div class="card mb-3" style="max-width: 100%;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img class="card-img-overlay flex-fill" style="height: 100%; width: 100%; object-fit:contain;" src="data:image/jpeg;base64,@Convert.ToBase64String(article.ImageBytes)" alt="ArticleImage">
+                        <img class="card-img-overlay" style="height: 100%; width: 100%; object-fit:contain;" src="data:image/jpeg;base64,@Convert.ToBase64String(article.ImageBytes)" alt="ArticleImage">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -19,8 +19,8 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between">
                             <ul type="None" class="m-0 p-2 d-sm-flex">
-                                <li>12.12.2020 13:13</li>
-                                <li class="ml-2">slava</li>
+                                <li>@article.Date.ToString("dd.MM.yyyy HH:mm")</li>
+                                <li class="ml-2">@article.Author.Name</li>
                             </ul>    
                             <button class="btn btn-outline-primary">Approve</button>
                             <button class="btn btn-outline-danger">Remove</button>

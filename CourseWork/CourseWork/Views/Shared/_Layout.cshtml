@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using EntityModels.DamainEntities;
+@inject BLL.BusinessInterfaces.IService<Article> _articles
+@{ 
+    var letest = _articles.GetAll().LastOrDefault();
+    var mostPopular = _articles.GetAll().OrderByDescending(e => e.NumberOfViews).FirstOrDefault();
+} 
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,7 +18,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CourseWork</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">News</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,7 +26,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">All News</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -27,29 +34,64 @@
                     </ul>
                 </div>
                 <div class="my-2 my-lg-0">
-                    <div class="btn-group">
-                        <button class="btn btn-outline-secondary btn-sm" type="button">
-                            @User.Identity.Name
-                        </button>
-                        <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="Article" asp-action="Add">Write Article</a>
-                            <a class="dropdown-item" asp-controller="SiteManagement" asp-action="ManagementBody">Manage Site</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="btn-group">
+                            <button class="btn btn-outline-secondary btn-sm" type="button">
+                                @User.Identity.Name
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Article" asp-action="Add">Write Article</a>
+                                <a class="dropdown-item" asp-controller="SiteManagement" asp-action="ManagementBody">Manage Site</a>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3 col-9">
-            @RenderBody()
+        <main role="main" class="pb-3 col-9 d-flex">
+            <div class="col-12">
+                @RenderBody()
+            </div>
+            <div>
+                <div>
+                    <div>
+                        <label class="col-form-label-lg modal-title font-weight-bold">Latest News</label>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="data:image/jpeg;base64,@Convert.ToBase64String(letest?.ImageBytes)" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@letest?.Title</h5>
+                                <p class="card-text">@letest?.Text.Substring(0, letest.Text.Length / 3)...</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="col-form-label-lg modal-title font-weight-bold">Most Popular</label>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="data:image/jpeg;base64,@Convert.ToBase64String(mostPopular?.ImageBytes)" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">@mostPopular?.Title</h5>
+                                <p class="card-text">@mostPopular?.Text.Substring(0, mostPopular.Text.Length / 3) ...</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
-        <div class="col-3">
-
-        </div>
     </div>
 
     <footer class="border-top footer text-muted">

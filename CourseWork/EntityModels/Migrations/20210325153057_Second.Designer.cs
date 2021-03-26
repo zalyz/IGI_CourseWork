@@ -4,14 +4,16 @@ using EntityModels.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityModels.Migrations
 {
     [DbContext(typeof(NewsContext))]
-    partial class NewsContextModelSnapshot : ModelSnapshot
+    [Migration("20210325153057_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace EntityModels.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ArticleId")
+                    b.Property<int?>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<int>("AuthorId")
@@ -149,11 +151,9 @@ namespace EntityModels.Migrations
 
             modelBuilder.Entity("EntityModels.DamainEntities.ArticleComment", b =>
                 {
-                    b.HasOne("EntityModels.DamainEntities.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("EntityModels.DamainEntities.Article", null)
+                        .WithMany("ArticleComments")
+                        .HasForeignKey("ArticleId");
 
                     b.HasOne("EntityModels.Users.Author", "Author")
                         .WithMany()
@@ -161,9 +161,12 @@ namespace EntityModels.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Article");
-
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("EntityModels.DamainEntities.Article", b =>
+                {
+                    b.Navigation("ArticleComments");
                 });
 #pragma warning restore 612, 618
         }
