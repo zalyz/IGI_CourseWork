@@ -25,7 +25,7 @@ namespace EntityModels.Repositories
 
         public List<Article> GetAll()
         {
-            return _newsContext.Articles.Include(e => e.Author).ToList();
+            return _newsContext.Articles.Include(e => e.Author).Include(e => e.Topic).ToList();
         }
 
         public void Remove(int id)

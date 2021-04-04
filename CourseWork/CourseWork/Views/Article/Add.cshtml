@@ -1,4 +1,4 @@
-﻿@model CourseWork.Models.ArticleModels.ArticleViewModel
+﻿@model CourseWork.Models.ArticleModels.ArticleAddViewModel
 
 <script src="~/js/Article.js"></script>
 
@@ -37,7 +37,7 @@
             </div>
             <div class="">
                 <label class="form-check-label" for="articleText">Article text</label>
-                <textarea id="articleText" class="form-control w-100 text-dark" asp-for="ArticleAddValidation.Text" style="max-height: 100%"></textarea>
+                <textarea id="articleText" class="form-control w-100 text-dark" wrap="hard" asp-for="ArticleAddValidation.Text" style="max-height: 100%"></textarea>
                 <span asp-validation-for="@Model.ArticleAddValidation.Text"></span>
             </div>
         </div>

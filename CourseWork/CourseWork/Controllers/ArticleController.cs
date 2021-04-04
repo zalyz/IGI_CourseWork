@@ -34,7 +34,7 @@ namespace CourseWork.Controllers
 
         public IActionResult Add()
         {
-            var articleViewModel = new ArticleViewModel
+            var articleViewModel = new ArticleAddViewModel
             {
                 Topics = _topicService.GetAll(),
             };
@@ -64,11 +64,26 @@ namespace CourseWork.Controllers
             return RedirectToAction("Add");
         }
 
+        public IActionResult AddComment(int articleId, string text)
+        {
+            var comment = new ArticleComment
+            {
+                ArticleId = articleId,
+                AuthorId = int.Parse(User.Claims.First(e => e.Type == "Id").Value),
+                DateTime = DateTime.Now,
+                Text = text,
+            };
+            _articleCommentService.Add(comment);
+
+            return RedirectToAction("ShowArticle", new { articleId });
+        }
+
         public IActionResult Edit()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult ShowArticle(int articleId)
         {
             var showArticleViewModels = new ShowArticleViewModel
@@ -76,6 +91,8 @@ namespace CourseWork.Controllers
                 Article = _articleService.GetAll().First(e => e.Id == articleId),
                 ArticleComments = _articleCommentService.GetAll().Where(e => e.ArticleId == articleId).ToList(),
             };
+            showArticleViewModels.Article.NumberOfViews += 1;
+            _articleService.Update(showArticleViewModels.Article);
             return View(showArticleViewModels);
         }
 

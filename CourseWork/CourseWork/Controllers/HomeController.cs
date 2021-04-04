@@ -1,28 +1,58 @@
 ﻿using BLL.BusinessInterfaces;
 using CourseWork.Models;
+using CourseWork.Models.ArticleModels;
 using EntityModels.DamainEntities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CourseWork.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IService<Article> _service;
+        private readonly IService<Article> articleServiceservice;
+        private readonly IService<Topic> _topicService;
 
-        public HomeController(IService<Article> service)
+        public HomeController(IService<Article> articleService, IService<Topic> topicService)
         {
-            _service = service;
+            articleServiceservice = articleService;
+            _topicService = topicService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? topicId, string title, int page = 1)
         {
-            return View();
+            int pageSize = 7;
+
+            //фильтрация
+            IEnumerable<Article> articles = null;
+            if (!string.IsNullOrEmpty(title))
+            {
+                articles = articleServiceservice.GetAll().Where(e => e.Title == title && e.IsApproved == true);
+            }
+            else
+            {
+                articles = articleServiceservice.GetAll().Where(e => e.IsApproved == true);
+            }
+
+            if (topicId != null && topicId != 0)
+            {
+                articles = articles.Where(e => e.Topic.Id == topicId);
+            }
+
+            // пагинация
+            var count = articles.Count();
+            var items = articles.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // формируем модель представления
+            var viewModel = new ArticlesPaginationViewModel
+            {
+                ArticlePageViewModel = new ArticlePageViewModel(count, page, pageSize),
+                ArticleFilterViewModel = new ArticleFilterViewModel(_topicService.GetAll(), topicId, title),
+                Articles = articles.ToList(),
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -45,6 +45,12 @@ namespace CourseWork.Controllers
             return RedirectToAction("GetArticlePartialView");
         }
 
+        public IActionResult DisapproveArticle(int id)
+        {
+            _articleService.Remove(id);
+            return RedirectToAction("GetArticlePartialView");
+        }
+
         public IActionResult GetTopicPartialView()
         {
             var topicPartialView = "TopicManagement";

@@ -14,16 +14,16 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><a class="card-link badge-light" asp-action="" asp-controller="">@article.Title</a></h5>
+                            <h5 class="card-title"><a class="card-link badge-light" asp-action="ShowArticle" asp-controller="Article" asp-route-articleId="@article.Id">@article.Title</a></h5>
                             <p class="card-text">@article.Text</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
                             <ul type="None" class="m-0 p-2 d-sm-flex">
                                 <li>@article.Date.ToString("dd.MM.yyyy HH:mm")</li>
                                 <li class="ml-2">@article.Author.Name</li>
-                            </ul>    
-                            <button class="btn btn-outline-primary">Approve</button>
-                            <button class="btn btn-outline-danger">Remove</button>
+                            </ul>
+                            <a class="btn btn-outline-primary" asp-controller="SiteManagement" asp-action="ApproveArticle" asp-route-id="@article.Id">Approve</a>
+                            <a class="btn btn-outline-danger" asp-controller="SiteManagement" asp-action="DisapproveArticle" asp-route-id="@article.Id">Disapprove</a>
                         </div>
                     </div>
                 </div>
