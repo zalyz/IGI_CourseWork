@@ -5,6 +5,7 @@ using EntityModels.Repositories;
 using EntityModels.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace EntityModels
 {
@@ -13,7 +14,10 @@ namespace EntityModels
         public static void AddDalClasses(this IServiceCollection services)
         {
             services.AddDbContext<NewsContext>(options =>
-                options.UseSqlServer(@"Data Source=.\sqlexpress;Initial Catalog=NewsDb;Integrated Security=True"));
+            {
+                options.UseSqlServer(@"Data Source=.\sqlexpress;Initial Catalog=NewsDb;Integrated Security=True");
+                options.LogTo(Console.WriteLine);
+            });
 
             services.AddTransient<IRepository<Article>, ArticleRepository>();
             services.AddTransient<IRepository<Topic>, TopicRepository>();

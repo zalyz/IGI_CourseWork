@@ -1,0 +1,26 @@
+﻿@model EntityModels.Users.Author
+
+<title>Edit Profile</title>
+<div>
+    <form method="post" asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label asp-for="Name">Change Name</label>
+            <input asp-for="Name" class="form-control" value="@Model.Name"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email">Change Email</label>
+            <input asp-for="Email" class="form-control" value="@Model.Email"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Change Description</label>
+            <textarea asp-for="Description" class="form-control" wrap="hard">@Model.Description</textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone">Change Phone</label>
+            <input asp-for="Phone" class="form-control" value="@Model.Phone"/>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a class="btn btn-outline-info" asp-action="ShowProfile">Back</a>
+    </form>
+</div>

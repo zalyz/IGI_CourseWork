@@ -97,5 +97,33 @@ namespace CourseWork.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
+
+        public IActionResult ShowProfile()
+        {
+            var id = int.Parse(User.Claims.First(e => e.Type == "Id").Value);
+            var author = _authorService.GetAll().First(e => e.Id == id);
+            return View(author);
+        }
+
+        [HttpGet]
+        public IActionResult EditProfile()
+        {
+            var id = int.Parse(User.Claims.First(e => e.Type == "Id").Value);
+            var author = _authorService.GetAll().First(e => e.Id == id);
+            return View(author);
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(EditProfileViewModel editModel)
+        {
+            var author = _authorService.GetAll().First(e => e.Id == int.Parse(User.Claims.First(e => e.Type == "Id").Value));
+            author.Name = editModel.Name;
+            author.Email = editModel.Email;
+            author.Description = editModel.Description;
+            author.Phone = editModel.Phone;
+            _authorService.Update(author);
+
+            return RedirectToAction("ShowProfile");
+        }
     }
 }

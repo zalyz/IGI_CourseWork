@@ -1,0 +1,26 @@
+﻿@model EntityModels.Users.Author
+
+<div>
+    <div>
+        <h1>@Model.Name</h1>
+    </div>
+    <div>
+        <label class="font-weight-bold">Email: </label>
+        <p style="font-size:larger">@Model.Email</p>
+    </div>
+    <div>
+        <label class="font-weight-bold">Description: </label>
+        <p style="font-size:larger">@Model.Description</p>
+    </div>
+    <div>
+        <label class="font-weight-bold">Phone: </label>
+        <p style="font-size:larger">@Model.Phone</p>
+    </div>
+    <div>
+        <label class="font-weight-bold">Role: </label>
+        <p style="font-size:larger">@Model.Role</p>
+    </div>
+    <div>
+        <a asp-controller="Account" asp-action="EditProfile" class="btn btn-outline-info">Edit Profile</a>
+    </div>
+</div>

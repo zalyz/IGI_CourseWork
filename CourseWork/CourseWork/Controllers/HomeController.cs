@@ -2,13 +2,16 @@
 using CourseWork.Models;
 using CourseWork.Models.ArticleModels;
 using EntityModels.DamainEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using EntityModels.Users;
 
 namespace CourseWork.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IService<Article> articleServiceservice;
@@ -20,15 +23,16 @@ namespace CourseWork.Controllers
             _topicService = topicService;
         }
 
+        [Authorize(Roles = "Author")]
         public IActionResult Index(int? topicId, string title, int page = 1)
         {
-            int pageSize = 7;
+            int pageSize = 1;
 
             //фильтрация
             IEnumerable<Article> articles = null;
             if (!string.IsNullOrEmpty(title))
             {
-                articles = articleServiceservice.GetAll().Where(e => e.Title == title && e.IsApproved == true);
+                articles = articleServiceservice.GetAll().Where(e => e.Title.Contains(title) && e.IsApproved == true);
             }
             else
             {
@@ -49,12 +53,13 @@ namespace CourseWork.Controllers
             {
                 ArticlePageViewModel = new ArticlePageViewModel(count, page, pageSize),
                 ArticleFilterViewModel = new ArticleFilterViewModel(_topicService.GetAll(), topicId, title),
-                Articles = articles.ToList(),
+                Articles = items.ToList(),
             };
 
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Manager")]
         public IActionResult Privacy()
         {
             return View();

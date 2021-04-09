@@ -37,9 +37,9 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="btn-group">
-                            <button class="btn btn-outline-secondary btn-sm" type="button">
+                            <a class="btn btn-outline-dark btn-sm" asp-controller="Account" asp-action="ShowProfile">
                                 @User.Identity.Name
-                            </button>
+                            </a>
                             <button type="button" class="btn btn-sm btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
