@@ -5,29 +5,33 @@
 <div>
     @if (Model.Articles.Any())
     {
-        foreach (var article in Model.Articles)
+        foreach (var key in Model.Articles.GroupBy(e => e.Topic.Name).OrderBy(e => e.Key))
         {
-            <div class="card mb-3" style="max-width: 100%;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img class="card-img-overlay" style="height: 100%; width: 100%; object-fit:contain;" src="data:image/jpeg;base64,@Convert.ToBase64String(article.ImageBytes)" alt="ArticleImage">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title"><a class="card-link badge-light" asp-action="ShowArticle" asp-controller="Article" asp-route-articleId="@article.Id">@article.Title</a></h5>
-                            <p class="card-text">@article.Text</p>
+            <h2>@key.Key</h2>
+            foreach (var article in key)
+            {
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img class="card-img-overlay" style="height: 100%; width: 100%; object-fit:contain;" src="data:image/jpeg;base64,@Convert.ToBase64String(article.ImageBytes)" alt="ArticleImage">
                         </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            <ul type="None" class="m-0 p-2 d-sm-flex">
-                                <li>@article.Date.ToString("dd.MM.yyyy HH:mm")</li>
-                                <li class="ml-2">@article.Author.Name</li>
-                            </ul>
-                            <a class="btn btn-outline-primary" asp-controller="SiteManagement" asp-action="ApproveArticle" asp-route-id="@article.Id">Approve</a>
-                            <a class="btn btn-outline-danger" asp-controller="SiteManagement" asp-action="DisapproveArticle" asp-route-id="@article.Id">Disapprove</a>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><a class="card-link badge-light" asp-action="ShowArticle" asp-controller="Article" asp-route-articleId="@article.Id">@article.Title</a></h5>
+                                <p class="card-text">@article.Text</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <ul type="None" class="m-0 p-2 d-sm-flex">
+                                    <li>@article.Date.ToString("dd.MM.yyyy HH:mm")</li>
+                                    <li class="ml-2">@article.Author.Name</li>
+                                </ul>
+                                <a class="btn btn-outline-primary" asp-controller="SiteManagement" asp-action="ApproveArticle" asp-route-id="@article.Id">Approve</a>
+                                <a class="btn btn-outline-danger" asp-controller="SiteManagement" asp-action="DisapproveArticle" asp-route-id="@article.Id">Disapprove</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     }
     else

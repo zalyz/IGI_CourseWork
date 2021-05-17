@@ -5,7 +5,7 @@ using EntityModels.Users;
 
 namespace BLL.Services
 {
-    class AuthorService : IService<Author>
+    internal class AuthorService : IService<Author>
     {
         private readonly IRepository<Author> _authorRepository;
 

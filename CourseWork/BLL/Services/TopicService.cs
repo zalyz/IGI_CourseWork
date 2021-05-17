@@ -5,7 +5,7 @@ using EntityModels.Interfaces;
 
 namespace BLL.Services
 {
-    class TopicService : IService<Topic>
+    internal class TopicService : IService<Topic>
     {
         private readonly IRepository<Topic> _topicRepository;
 

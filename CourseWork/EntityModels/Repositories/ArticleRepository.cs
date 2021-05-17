@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EntityModels.Repositories
 {
-    class ArticleRepository : IRepository<Article>
+    internal class ArticleRepository : IRepository<Article>
     {
         private readonly NewsContext _newsContext;
 

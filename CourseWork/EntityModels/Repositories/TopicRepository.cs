@@ -6,7 +6,7 @@ using EntityModels.DamainEntities;
 
 namespace EntityModels.Repositories
 {
-    class TopicRepository : IRepository<Topic>
+    internal class TopicRepository : IRepository<Topic>
     {
         private readonly NewsContext _newsContext;
 

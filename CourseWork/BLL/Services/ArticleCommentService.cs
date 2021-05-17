@@ -5,7 +5,7 @@ using EntityModels.Interfaces;
 
 namespace BLL.Services
 {
-    class ArticleCommentService : IService<ArticleComment>
+    internal class ArticleCommentService : IService<ArticleComment>
     {
         private readonly IRepository<ArticleComment> _articleCommentRepository;
 

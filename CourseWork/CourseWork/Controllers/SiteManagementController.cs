@@ -84,5 +84,45 @@ namespace CourseWork.Controllers
                 PartialViewName = authorPartialView,
             });
         }
+
+        public IActionResult IncreaceRoleToAuthor(int authorId)
+        {
+            var author = _authorService.GetAll().First(e => e.Id == authorId);
+            switch (author.Role)
+            {
+                case Role.Author:
+                    author.Role = Role.Manager;
+                    break;
+                case Role.Manager:
+                    author.Role = Role.Admin;
+                    break;
+                case Role.Admin:
+                default:
+                    break;
+            }
+
+            _authorService.Update(author);
+            return RedirectToAction("GetAuthorPartialView");
+        }
+
+        public IActionResult DecreaceRoleToAuthor(int authorId)
+        {
+            var author = _authorService.GetAll().First(e => e.Id == authorId);
+            switch (author.Role)
+            {
+                case Role.Manager:
+                    author.Role = Role.Author;
+                    break;
+                case Role.Admin:
+                    author.Role = Role.Manager;
+                    break;
+                case Role.Author:
+                default:
+                    break;
+            }
+
+            _authorService.Update(author);
+            return RedirectToAction("GetAuthorPartialView");
+        }
     }
 }

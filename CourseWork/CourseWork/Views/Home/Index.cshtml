@@ -6,7 +6,7 @@
 <div>
     <form class="d-flex justify-content-between">
         <div class="form-group">
-            <label>Имя: </label>
+            <label>Title: </label>
             <input name="title" value="@Model.ArticleFilterViewModel.SelectedTitle" class="form-control" />
         </div>
         <div class="form-group">
@@ -14,35 +14,36 @@
             <select name="topicId" asp-items="Model.ArticleFilterViewModel.Topics" class="form-control"></select>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-outline-dark">Find</button>
+            <br />
+            <button type="submit" class="btn mt-2 btn-outline-dark">Find</button>
         </div>
     </form>
 </div>
 <div>
-    @foreach (var article in Model.Articles)
+    @for (int i = 0; i < Model.Articles.Count; i++)
     {
         <div class="card mb-3" style="max-width: 100%;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img class="card-img-overlay" style="height: 100%; width: 100%; object-fit:contain;" src="data:image/jpeg;base64,@Convert.ToBase64String(article.ImageBytes)" alt="ArticleImage">
+                    <img class="card-img-overlay" style="height: 100%; width: 100%; object-fit:contain;" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Articles[i].ImageBytes)" alt="ArticleImage">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title"><a class="card-link badge-light" asp-action="ShowArticle" asp-controller="Article" asp-route-articleId="@article.Id">@article.Title</a></h5>
-                        <p class="card-text">@article.Text</p>
+                        <h5 class="card-title"><a class="card-link badge-light" asp-action="ShowArticle" asp-controller="Article" asp-route-articleId="@Model.Articles[i].Id">@Model.Articles[i].Title</a></h5>
+                        <p class="card-text">@Model.Articles[i].Text.Substring(0,4)</p>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
                         <ul type="None" class="m-0 p-2 d-sm-flex">
-                            <li>@article.Date.ToString("dd.MM.yyyy HH:mm")</li>
-                            <li class="ml-2">@article.Author.Name</li>
+                            <li>@Model.Articles[i].Date.ToString("dd.MM.yyyy HH:mm")</li>
+                            <li class="ml-2">@Model.Articles[i].Author.Name</li>
                         </ul>
                         <div>
                             <span><img src="~/eyeIcon.png" alt="Views" /></span>
-                            <span>@article.NumberOfViews</span>
+                            <span>@Model.Articles[i].NumberOfViews</span>
                         </div>
                         <div>
                             <span><img src="~/comments.png" alt="Comments" /></span>
-                            <span></span>
+                            <span>@Model.CommentsCount[i]</span>
                         </div>
                     </div>
                 </div>
@@ -54,8 +55,8 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.ArticlePageViewModel.PageNumber - 1)"
-       asp-route-name="@(Model.ArticleFilterViewModel.SelectedTitle)"
-       asp-route-company="@(Model.ArticleFilterViewModel.SelectedTopic)"
+       asp-route-title="@(Model.ArticleFilterViewModel.SelectedTitle)"
+       asp-route-topicId="@(Model.ArticleFilterViewModel.SelectedTopic)"
        class="btn  btn-outline-dark">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
@@ -65,8 +66,8 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.ArticlePageViewModel.PageNumber + 1)"
-       asp-route-name="@(Model.ArticleFilterViewModel.SelectedTitle)"
-       asp-route-company="@(Model.ArticleFilterViewModel.SelectedTopic)"
+       asp-route-title="@(Model.ArticleFilterViewModel.SelectedTitle)"
+       asp-route-topicId="@(Model.ArticleFilterViewModel.SelectedTopic)"
        class="btn btn-outline-dark">
         Вперед
         <i class="glyphicon glyphicon-chevron-right"></i>

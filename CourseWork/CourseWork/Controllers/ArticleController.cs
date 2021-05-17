@@ -1,15 +1,12 @@
 ﻿using BLL.BusinessInterfaces;
-using CourseWork.Models;
 using CourseWork.Models.ArticleModels;
 using EntityModels.DamainEntities;
 using EntityModels.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CourseWork.Controllers
 {
@@ -78,6 +75,12 @@ namespace CourseWork.Controllers
             return RedirectToAction("ShowArticle", new { articleId });
         }
 
+        public IActionResult RemoveArticle(int articleId)
+        {
+            _articleService.Remove(articleId);
+            return RedirectToAction("ArticlesByAuthor", "Article");
+        }
+
         public IActionResult Edit()
         {
             return View();
@@ -94,6 +97,13 @@ namespace CourseWork.Controllers
             showArticleViewModels.Article.NumberOfViews += 1;
             _articleService.Update(showArticleViewModels.Article);
             return View(showArticleViewModels);
+        }
+
+        public IActionResult ArticlesByAuthor()
+        {
+            var authorId = int.Parse(User.Claims.First(e => e.Type == "Id").Value);
+            var artices = _articleService.GetAll().Where(e => e.Author.Id == authorId);
+            return View(artices);
         }
 
         private byte[] GetByteArrayFromImage(IFormFile file)

@@ -6,7 +6,7 @@ using EntityModels.Users;
 
 namespace EntityModels.Repositories
 {
-    class AuthorRepository : IRepository<Author>
+    internal class AuthorRepository : IRepository<Author>
     {
         private readonly NewsContext _newsContext;
 
